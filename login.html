@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login – AIWeb Studio</title>
+
+<style>
+body{
+  background:#0b0f1a;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height:100vh;
+  font-family:Inter, sans-serif;
+}
+
+.card{
+  background:#12172a;
+  padding:40px;
+  border-radius:20px;
+  width:360px;
+  text-align:center;
+  box-shadow:0 20px 60px rgba(0,0,0,.4);
+}
+
+input{
+  width:100%;
+  padding:14px;
+  margin:12px 0;
+  border-radius:12px;
+  border:none;
+  font-size:1rem;
+  background:#0f1530;
+  color:#fff;
+}
+
+button{
+  width:100%;
+  padding:14px;
+  margin-top:10px;
+  border-radius:30px;
+  border:none;
+  background:#4f6bff;
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+}
+
+button:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
+
+.link{
+  margin-top:16px;
+  font-size:.9rem;
+  color:#cfd6ff;
+}
+
+.link a{
+  color:#4f6bff;
+  text-decoration:none;
+  font-weight:600;
+}
+
+#error{
+  margin-top:12px;
+  color:#ff6b6b;
+  font-size:.9rem;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h2>Login</h2>
+
+  <form id="loginForm">
+    <input id="emailInput" type="email" placeholder="Email" required>
+    <input id="passwordInput" type="password" placeholder="Password" required>
+
+    <button id="loginBtn" type="submit">Login</button>
+  </form>
+
+  <div id="error"></div>
+
+  <div class="link">
+    Don’t have an account?
+    <a href="register.html">Register</a>
+  </div>
+</div>
+
+<script>
+/* ================= CONFIG ================= */
+// 🔴 CHANGE AFTER BACKEND DEPLOY
+const API_BASE = "https://YOUR-BACKEND-URL";
+const LOGIN_API = API_BASE + "/api/auth/login";
+
+/* ================= ELEMENTS ================= */
+const form = document.getElementById("loginForm");
+const emailInput = document.getElementById("emailInput");
+const passwordInput = document.getElementById("passwordInput");
+const loginBtn = document.getElementById("loginBtn");
+const errorBox = document.getElementById("error");
+
+/* ================= SUBMIT ================= */
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  errorBox.innerText = "";
+  loginBtn.disabled = true;
+  loginBtn.innerText = "Logging in...";
+
+  try {
+    const res = await fetch(LOGIN_API, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: emailInput.value.trim(),
+        password: passwordInput.value
+      })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      errorBox.innerText = data.message || "Login failed";
+      loginBtn.disabled = false;
+      loginBtn.innerText = "Login";
+      return;
+    }
+
+    /* ✅ SAVE TOKEN */
+    localStorage.setItem("token", data.token);
+
+    /* ✅ REDIRECT USER */
+    window.location.href = "booking.html";
+
+  } catch (err) {
+    console.error(err);
+    errorBox.innerText = "Cannot connect to server";
+    loginBtn.disabled = false;
+    loginBtn.innerText = "Login";
+  }
+});
+</script>
+
+</body>
+</html>

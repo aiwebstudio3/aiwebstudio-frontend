@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AIWeb Studio – AI-Powered Websites & Ads</title>
+
+<meta name="description" content="AIWeb Studio provides AI-powered websites, ads, AI videos and digital services for businesses.">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+--bg:#0b0f1a;
+--card:#12172a;
+--pri:#4f6bff;
+--txt:#ffffff;
+--muted:#cfd6ff;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif;}
+body{background:var(--bg);color:var(--txt);line-height:1.6;}
+a{text-decoration:none;color:inherit}
+
+/* NAV */
+nav{
+position:fixed;top:0;left:0;width:100%;
+padding:14px 8%;
+display:flex;justify-content:space-between;align-items:center;
+background:rgba(11,15,26,.85);backdrop-filter:blur(10px);z-index:100;
+}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700}
+.logo img{width:36px}
+nav ul{list-style:none;display:flex;gap:22px;align-items:center}
+.menu-btn{display:none;font-size:1.6rem;cursor:pointer}
+
+/* HERO */
+header{
+min-height:100vh;display:flex;align-items:center;justify-content:center;
+text-align:center;padding:130px 8% 60px;position:relative;overflow:hidden;
+}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+header::after{content:"";position:absolute;inset:0;
+background:radial-gradient(circle at top,#1a2cff,#0b0f1a);opacity:.75;z-index:-1}
+header h1{font-size:3rem}
+header p{max-width:700px;margin:20px auto;color:var(--muted)}
+
+.btn{display:inline-block;margin:10px;padding:14px 34px;border-radius:40px;
+background:var(--pri);font-weight:600}
+.btn.alt{background:transparent;border:2px solid var(--pri)}
+
+/* SECTIONS */
+section{padding:90px 8%}
+h2{text-align:center;font-size:2.2rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:30px;margin-top:40px}
+
+/* CLICKABLE CARD */
+.card{
+background:var(--card);padding:30px;border-radius:22px;
+text-align:center;box-shadow:0 10px 40px rgba(0,0,0,.35);
+transition:.3s;cursor:pointer;
+}
+.card:hover{transform:translateY(-10px);background:#1a2145}
+
+footer{text-align:center;padding:40px;background:#0a0d16;color:#8892ff}
+
+/* MOBILE */
+@media(max-width:768px){
+nav ul{display:none;flex-direction:column;background:#0b0f1a;
+position:absolute;top:60px;right:0;width:230px;padding:20px}
+nav ul.show{display:flex}
+.menu-btn{display:block}
+.hero-video{display:none}
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="logo">
+    <img src="images/logo.png">
+    AIWeb Studio
+  </div>
+  <div class="menu-btn" onclick="toggleMenu()">☰</div>
+  <ul id="menu">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="booking.html">Book</a></li>
+    <li><a href="process.html">Process</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li class="auth">
+      <a href="login.html">Login</a>
+      <a href="register.html">Register</a>
+    </li>
+  </ul>
+</nav>
+
+<header>
+  <video class="hero-video" autoplay muted loop playsinline>
+    <source src="video/promo.mp4" type="video/mp4">
+  </video>
+  <div>
+    <h1>AI-Powered Websites & Ads</h1>
+    <p>Book professional AI-powered digital services online.</p>
+    <a href="booking.html" class="btn">Book Service</a>
+    <a href="services.html" class="btn alt">View Services</a>
+  </div>
+</header>
+
+<!-- SERVICES (NOW FULLY CLICKABLE) -->
+<section>
+<h2>Our Services</h2>
+<div class="grid">
+<a href="booking.html?service=AI Website Development" class="card">🤖 AI Website Development</a>
+<a href="booking.html?service=AI Video Creation" class="card">🎬 AI Video Creation</a>
+<a href="booking.html?service=Social Media Ads" class="card">📈 Social Media Ads</a>
+<a href="booking.html?service=Branding & Graphics" class="card">🎨 Branding & Graphics</a>
+</div>
+</section>
+
+<!-- PROCESS (NOW CLICKABLE) -->
+<section>
+<h2>How We Work</h2>
+<div class="grid">
+<a href="process.html" class="card">Understand Your Business</a>
+<a href="process.html" class="card">Create AI-Powered Solutions</a>
+<a href="process.html" class="card">Launch & Support</a>
+</div>
+</section>
+
+<footer>© 2025 AIWeb Studio</footer>
+
+<script>
+function toggleMenu(){
+document.getElementById("menu").classList.toggle("show");
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Services – AIWeb Studio</title>
+
+<meta name="description" content="AIWeb Studio offers AI-powered website development, ads, video editing and complete digital solutions for businesses.">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+--bg:#0b0f1a;
+--card:#12172a;
+--pri:#4f6bff;
+--txt:#ffffff;
+--muted:#cfd6ff;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif;}
+body{background:var(--bg);color:var(--txt);line-height:1.6;}
+a{text-decoration:none;color:inherit}
+
+/* NAV */
+nav{
+position:fixed;top:0;left:0;width:100%;
+padding:14px 8%;
+display:flex;justify-content:space-between;align-items:center;
+background:rgba(11,15,26,.85);backdrop-filter:blur(10px);z-index:100;
+}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700}
+.logo img{width:36px}
+nav ul{list-style:none;display:flex;gap:22px;align-items:center}
+nav ul li a:hover{color:var(--pri)}
+
+/* HEADER */
+header{
+padding:140px 8% 70px;
+text-align:center;
+background:radial-gradient(circle at top,#1a2cff,#0b0f1a);
+}
+header h1{font-size:3rem;margin-bottom:12px}
+header p{max-width:720px;margin:auto;color:var(--muted)}
+
+/* SECTION */
+section{padding:90px 8%}
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:30px;
+}
+
+/* CLICKABLE CARD */
+.card{
+background:var(--card);
+padding:30px;
+border-radius:22px;
+box-shadow:0 10px 40px rgba(0,0,0,.35);
+transition:.3s;
+cursor:pointer;
+display:block;
+}
+.card:hover{
+transform:translateY(-10px);
+background:#1a2145;
+}
+.card h3{margin-bottom:10px}
+.card p{color:var(--muted)}
+
+/* WHY US */
+.why{text-align:center;margin-top:80px}
+.why .grid{margin-top:40px}
+
+/* CTA */
+.cta{
+text-align:center;
+background:linear-gradient(135deg,#12172a,#0b0f1a);
+border-radius:24px;
+padding:60px 30px;
+max-width:900px;
+margin:100px auto 0;
+}
+.btn{
+display:inline-block;
+margin-top:20px;
+padding:14px 34px;
+border-radius:40px;
+background:var(--pri);
+font-weight:600;
+}
+
+/* FOOTER */
+footer{text-align:center;padding:40px;background:#0a0d16;color:#8892ff}
+
+/* MOBILE */
+@media(max-width:768px){
+header h1{font-size:2.2rem}
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav>
+<div class="logo">
+<img src="images/logo.png"> AIWeb Studio
+</div>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="services.html">Services</a></li>
+<li><a href="process.html">Process</a></li>
+<li><a href="booking.html">Book</a></li>
+<li><a href="login.html">Login</a></li>
+</ul>
+</nav>
+
+<!-- HEADER -->
+<header>
+<h1>Our Services</h1>
+<p>AI-powered digital solutions designed to grow your business.</p>
+</header>
+
+<!-- SERVICES (FIXED) -->
+<section>
+<div class="grid">
+
+<a href="booking.html?service=AI Website Development" class="card">
+<h3>🤖 AI Website Development</h3>
+<p>Modern, fast & mobile-friendly websites built using AI.</p>
+</a>
+
+<a href="booking.html?service=Social Media Ads" class="card">
+<h3>📈 Social Media Ads</h3>
+<p>High-converting Facebook & Instagram ads that generate leads.</p>
+</a>
+
+<a href="booking.html?service=Video Editing & Reels" class="card">
+<h3>🎬 Video Editing & Reels</h3>
+<p>AI-enhanced promo videos and short reels for growth.</p>
+</a>
+
+<a href="booking.html?service=Branding & Graphic Design" class="card">
+<h3>🎨 Branding & Graphic Design</h3>
+<p>Logos, posters, banners & complete brand identity.</p>
+</a>
+
+<a href="booking.html?service=Website Maintenance" class="card">
+<h3>⚙️ Website Maintenance</h3>
+<p>Updates, security, backups & performance optimization.</p>
+</a>
+
+<a href="booking.html?service=Complete Digital Package" class="card">
+<h3>🚀 Complete Digital Package</h3>
+<p>Website + Ads + Creatives + Support — all in one.</p>
+</a>
+
+</div>
+</section>
+
+<!-- WHY US -->
+<section class="why">
+<h2>Why Choose AIWeb Studio?</h2>
+<div class="grid">
+<div class="card">⚡ Fast Delivery</div>
+<div class="card">🤖 AI-Powered Workflow</div>
+<div class="card">💰 Affordable Pricing</div>
+<div class="card">📞 Ongoing Support</div>
+</div>
+</section>
+
+<!-- CTA -->
+<div class="cta">
+<h2>Ready to Start?</h2>
+<p style="color:var(--muted)">Book a service online or talk to our team.</p>
+<a href="booking.html" class="btn">Book a Service</a>
+</div>
+
+<footer>© 2025 AIWeb Studio</footer>
+
+</body>
+</html>

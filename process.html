@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Our Process – AIWeb Studio</title>
+<meta name="description" content="Discover how AIWeb Studio works — from understanding your business to launching AI-powered digital solutions.">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+--bg:#0b0f1a;
+--card:#12172a;
+--pri:#4f6bff;
+--txt:#ffffff;
+--muted:#cfd6ff;
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter}
+body{background:var(--bg);color:var(--txt);line-height:1.6}
+a{text-decoration:none;color:inherit}
+
+/* NAV */
+nav{
+position:fixed;
+top:0;left:0;width:100%;
+padding:14px 8%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:rgba(11,15,26,.8);
+backdrop-filter:blur(10px);
+z-index:100;
+}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700}
+.logo img{width:36px}
+nav ul{list-style:none;display:flex;gap:20px}
+
+/* HEADER */
+header{
+padding:140px 8% 60px;
+text-align:center;
+background:radial-gradient(circle at top,#1a2cff,#0b0f1a);
+}
+header h1{font-size:3rem;margin-bottom:10px}
+header p{max-width:720px;margin:auto;color:var(--muted)}
+
+/* SECTION */
+section{padding:100px 8%}
+
+.steps{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:30px;
+}
+
+.step{
+background:var(--card);
+padding:34px 30px;
+border-radius:22px;
+box-shadow:0 10px 40px rgba(0,0,0,.35);
+text-align:center;
+transition:.3s;
+cursor:pointer;
+}
+
+.step:hover{
+transform:translateY(-8px);
+background:#1a2145;
+}
+
+.step span{
+display:block;
+font-size:3rem;
+font-weight:700;
+color:var(--pri);
+opacity:.35;
+margin-bottom:10px;
+}
+
+.step h2{
+margin-bottom:10px;
+font-size:1.4rem;
+}
+
+.step p{color:var(--muted)}
+
+/* CTA */
+.cta{
+margin-top:80px;
+text-align:center;
+background:linear-gradient(135deg,#12172a,#0b0f1a);
+border-radius:24px;
+padding:60px 30px;
+max-width:900px;
+margin-left:auto;
+margin-right:auto;
+}
+
+.btn{
+display:inline-block;
+margin-top:20px;
+padding:14px 34px;
+border-radius:40px;
+background:var(--pri);
+color:#fff;
+font-weight:600;
+}
+
+/* FOOTER */
+footer{
+text-align:center;
+padding:40px;
+background:#0a0d16;
+color:#8892ff;
+}
+
+@media(max-width:768px){
+header h1{font-size:2.2rem}
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav>
+<div class="logo">
+<img src="images/logo.png" alt="AIWeb Studio Logo">
+<span>AIWeb Studio</span>
+</div>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="services.html">Services</a></li>
+<li><a href="booking.html">Book</a></li>
+</ul>
+</nav>
+
+<!-- HEADER -->
+<header>
+<h1>How We Work</h1>
+<p>
+A simple, transparent and effective process to deliver
+high-quality AI-powered digital solutions.
+</p>
+</header>
+
+<!-- PROCESS -->
+<section>
+<div class="steps">
+
+<a href="services.html" class="step">
+<span>01</span>
+<h2>Understand Your Business</h2>
+<p>
+We learn about your goals, audience and requirements.
+</p>
+</a>
+
+<a href="services.html" class="step">
+<span>02</span>
+<h2>Plan the Strategy</h2>
+<p>
+We design the best roadmap using AI-powered tools.
+</p>
+</a>
+
+<a href="booking.html" class="step">
+<span>03</span>
+<h2>Build & Create</h2>
+<p>
+We build websites, ads and videos tailored to your brand.
+</p>
+</a>
+
+<a href="contact.html" class="step">
+<span>04</span>
+<h2>Launch & Support</h2>
+<p>
+We launch your project and support your growth.
+</p>
+</a>
+
+</div>
+
+<!-- CTA -->
+<div class="cta">
+<h2>Ready to Start Your Project?</h2>
+<p style="color:var(--muted)">
+Book a service or talk to our team today.
+</p>
+<a href="booking.html" class="btn">Book a Service</a>
+</div>
+
+</section>
+
+<footer>
+© 2025 AIWeb Studio • AI-Powered Digital Solutions
+</footer>
+
+</body>
+</html>

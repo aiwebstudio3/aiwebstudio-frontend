@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Contact – AIWeb Studio</title>
+<meta name="description" content="Contact AIWeb Studio for AI-powered websites and digital services.">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#0b0f1a;
+  --card:#12172a;
+  --pri:#4f6bff;
+  --txt:#ffffff;
+  --muted:#cfd6ff;
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif}
+body{background:var(--bg);color:var(--txt);line-height:1.6}
+a{text-decoration:none;color:inherit}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;width:100%;
+  padding:14px 8%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:rgba(11,15,26,.8);
+  backdrop-filter:blur(10px);
+  z-index:100;
+}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700}
+.logo img{width:36px}
+nav ul{list-style:none;display:flex;gap:20px}
+
+/* HEADER */
+header{
+  padding:140px 8% 60px;
+  text-align:center;
+  background:radial-gradient(circle at top,#1a2cff,#0b0f1a);
+}
+header h1{font-size:3rem}
+header p{max-width:700px;margin:20px auto;color:var(--muted)}
+
+/* SECTION */
+section{padding:100px 8%}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:40px;
+}
+.card{
+  background:var(--card);
+  padding:30px;
+  border-radius:22px;
+  box-shadow:0 10px 40px rgba(0,0,0,.35);
+}
+
+/* FORM */
+input,textarea{
+  width:100%;
+  padding:14px;
+  margin-bottom:14px;
+  border-radius:12px;
+  border:none;
+  background:#0f1530;
+  color:#fff;
+}
+.btn{
+  display:inline-block;
+  padding:14px 34px;
+  border-radius:40px;
+  background:var(--pri);
+  color:#fff;
+  font-weight:600;
+  border:none;
+  cursor:pointer;
+}
+.btn:hover{opacity:.9}
+
+#status{
+  margin-top:12px;
+  font-size:.9rem;
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:40px;
+  background:#0a0d16;
+  color:#8892ff;
+}
+
+@media(max-width:768px){
+  header h1{font-size:2.2rem}
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <img src="images/logo.png" alt="AIWeb Studio Logo">
+    AIWeb Studio
+  </div>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="booking.html">Book</a></li>
+  </ul>
+</nav>
+
+<!-- HEADER -->
+<header>
+  <h1>Contact Us</h1>
+  <p>Have a project in mind? Let’s talk.</p>
+</header>
+
+<!-- CONTACT -->
+<section>
+  <div class="grid">
+
+    <!-- INFO -->
+    <div class="card">
+      <h2>Get in Touch</h2>
+      <p style="color:var(--muted)">We usually reply within 24 hours.</p>
+      <br>
+      <p>📧 Email: <strong>aiwebstudio3@gmail.com</strong></p>
+      <p>📱 WhatsApp: <strong>+91 62801 58308</strong></p>
+      <br>
+      <a href="https://wa.me/916280158308" class="btn">Chat on WhatsApp</a>
+    </div>
+
+    <!-- FORM -->
+    <div class="card">
+      <h2>Send a Message</h2>
+
+      <form id="contactForm">
+        <input id="nameInput" type="text" placeholder="Your Name" required>
+        <input id="emailInput" type="email" placeholder="Your Email" required>
+        <textarea id="messageInput" rows="5" placeholder="Your Message" required></textarea>
+
+        <button class="btn" type="submit">Send Message</button>
+        <p id="status"></p>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  © 2025 AIWeb Studio • AI-Powered Digital Solutions
+</footer>
+
+<script>
+/* ================= CONFIG ================= */
+// 🔴 CHANGE AFTER BACKEND DEPLOY
+const API_BASE = "https://YOUR-BACKEND-URL";
+const CONTACT_API = API_BASE + "/api/contact";
+
+/* ================= ELEMENTS ================= */
+const form = document.getElementById("contactForm");
+const nameInput = document.getElementById("nameInput");
+const emailInput = document.getElementById("emailInput");
+const messageInput = document.getElementById("messageInput");
+const statusEl = document.getElementById("status");
+
+/* ================= SUBMIT ================= */
+form.addEventListener("submit", async (e)=>{
+  e.preventDefault();
+
+  statusEl.innerText = "Sending...";
+  statusEl.style.color = "#cfd6ff";
+
+  const payload = {
+    name: nameInput.value.trim(),
+    email: emailInput.value.trim(),
+    message: messageInput.value.trim()
+  };
+
+  try{
+    const res = await fetch(CONTACT_API,{
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    if(!res.ok) throw new Error("Backend error");
+
+    statusEl.style.color = "#6bff95";
+    statusEl.innerText = "Message sent successfully!";
+    form.reset();
+
+  }catch(err){
+    // 📱 WhatsApp fallback
+    const text = `New Contact Message
+Name: ${payload.name}
+Email: ${payload.email}
+Message: ${payload.message}`;
+
+    window.open(
+      "https://wa.me/916280158308?text=" + encodeURIComponent(text),
+      "_blank"
+    );
+
+    statusEl.style.color = "#ffd36b";
+    statusEl.innerText = "Redirected to WhatsApp for faster response.";
+  }
+});
+</script>
+
+</body>
+</html>

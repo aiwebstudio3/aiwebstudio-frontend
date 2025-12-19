@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Create Account – AIWeb Studio</title>
+
+<style>
+body{
+  background:#0b0f1a;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height:100vh;
+  font-family:Inter, sans-serif;
+}
+
+.card{
+  background:#12172a;
+  padding:40px;
+  border-radius:22px;
+  width:360px;
+  text-align:center;
+  box-shadow:0 20px 60px rgba(0,0,0,.4);
+}
+
+input{
+  width:100%;
+  padding:14px;
+  margin:12px 0;
+  border-radius:14px;
+  border:none;
+  font-size:1rem;
+  background:#0f1530;
+  color:#fff;
+}
+
+button{
+  width:100%;
+  padding:14px;
+  margin-top:14px;
+  border-radius:30px;
+  border:none;
+  background:#4f6bff;
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+}
+
+button:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
+
+#msg{
+  margin-top:14px;
+  font-size:.9rem;
+}
+
+.link{
+  margin-top:16px;
+  font-size:.9rem;
+  color:#cfd6ff;
+}
+
+.link a{
+  color:#4f6bff;
+  font-weight:600;
+  text-decoration:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h2>Create Account</h2>
+
+  <form id="registerForm">
+    <input id="nameInput" type="text" placeholder="Full Name" required />
+    <input id="emailInput" type="email" placeholder="Email" required />
+    <input id="passwordInput" type="password" placeholder="Password" required />
+
+    <button id="registerBtn" type="submit">Register</button>
+  </form>
+
+  <div id="msg"></div>
+
+  <div class="link">
+    Already have an account?
+    <a href="login.html">Login</a>
+  </div>
+</div>
+
+<script>
+/* ================= CONFIG ================= */
+// 🔴 CHANGE AFTER BACKEND DEPLOY
+const API_BASE = "https://YOUR-BACKEND-URL";
+const REGISTER_API = API_BASE + "/api/auth/register";
+
+/* ================= ELEMENTS ================= */
+const form = document.getElementById("registerForm");
+const nameInput = document.getElementById("nameInput");
+const emailInput = document.getElementById("emailInput");
+const passwordInput = document.getElementById("passwordInput");
+const registerBtn = document.getElementById("registerBtn");
+const msg = document.getElementById("msg");
+
+/* ================= SUBMIT ================= */
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  msg.innerText = "";
+  msg.style.color = "#cfd6ff";
+  registerBtn.disabled = true;
+  registerBtn.innerText = "Creating account...";
+
+  const payload = {
+    name: nameInput.value.trim(),
+    email: emailInput.value.trim(),
+    password: passwordInput.value.trim()
+  };
+
+  if (!payload.name || !payload.email || !payload.password) {
+    msg.style.color = "#ff6b6b";
+    msg.innerText = "All fields are required";
+    registerBtn.disabled = false;
+    registerBtn.innerText = "Register";
+    return;
+  }
+
+  try {
+    const res = await fetch(REGISTER_API, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      msg.style.color = "#ff6b6b";
+      msg.innerText = data.message || "Registration failed";
+      registerBtn.disabled = false;
+      registerBtn.innerText = "Register";
+      return;
+    }
+
+    msg.style.color = "#6bff95";
+    msg.innerText = "✅ Account created successfully! Redirecting...";
+
+    setTimeout(() => {
+      window.location.href = "login.html";
+    }, 1200);
+
+  } catch (err) {
+    console.error(err);
+    msg.style.color = "#ff6b6b";
+    msg.innerText = "Server error. Please try again.";
+    registerBtn.disabled = false;
+    registerBtn.innerText = "Register";
+  }
+});
+</script>
+
+</body>
+</html>

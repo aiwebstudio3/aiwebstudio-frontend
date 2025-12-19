@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book Service – AIWeb Studio</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Inter, sans-serif;
+  background:#0b0f1a;
+  color:#fff;
+}
+
+nav{
+  padding:14px 8%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:#0b0f1a;
+}
+
+nav a{
+  color:white;
+  text-decoration:none;
+  margin-left:20px;
+}
+
+.container{
+  max-width:900px;
+  margin:120px auto;
+  padding:40px;
+  background:#12172a;
+  border-radius:24px;
+  box-shadow:0 20px 60px rgba(0,0,0,.4);
+}
+
+h1{text-align:center;margin-bottom:20px}
+
+form{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+form textarea{grid-column:1/3}
+
+input,select,textarea{
+  padding:14px;
+  border-radius:12px;
+  border:none;
+  font-size:1rem;
+  background:#0f1530;
+  color:#fff;
+}
+
+button{
+  grid-column:1/3;
+  padding:14px;
+  border-radius:30px;
+  border:none;
+  background:#4f6bff;
+  color:white;
+  font-size:1rem;
+  font-weight:600;
+  cursor:pointer;
+}
+
+button:hover{opacity:.9}
+
+#status{
+  grid-column:1/3;
+  text-align:center;
+  margin-top:10px;
+}
+
+@media(max-width:768px){
+  form{grid-template-columns:1fr}
+  form textarea,button,#status{grid-column:1}
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <strong>AIWeb Studio</strong>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="#" onclick="logout()">Logout</a>
+  </div>
+</nav>
+
+<!-- CONTAINER -->
+<div class="container">
+  <h1>Book a Service</h1>
+
+  <p style="text-align:center;color:#cfd6ff">
+    Fill the form below and we’ll contact you shortly.
+  </p>
+
+  <form id="bookingForm">
+    <input type="text" id="name" placeholder="Your Name" required>
+    <input type="email" id="email" placeholder="Email Address" required>
+    <input type="tel" id="phone" placeholder="WhatsApp Number" required>
+
+    <select id="service" required>
+      <option value="">Select Service</option>
+      <option>AI Website Development</option>
+      <option>Social Media Ads</option>
+      <option>AI Video Creation</option>
+      <option>Branding & Graphics</option>
+      <option>Complete Digital Package</option>
+    </select>
+
+    <textarea id="message" rows="4" placeholder="Tell us about your project"></textarea>
+
+    <button type="submit">Submit Booking</button>
+    <p id="status"></p>
+  </form>
+</div>
+
+<script>
+/* ================= CONFIG ================= */
+// 🔴 CHANGE THIS AFTER BACKEND DEPLOY
+const API_BASE = "https://YOUR-BACKEND-URL";
+const BOOKING_API = API_BASE + "/api/bookings";
+
+/* ================= AUTH ================= */
+const token = localStorage.getItem("token");
+if (!token) {
+  window.location.href = "login.html";
+}
+
+/* ================= ELEMENTS ================= */
+const form = document.getElementById("bookingForm");
+const nameInput = document.getElementById("name");
+const emailInput = document.getElementById("email");
+const phoneInput = document.getElementById("phone");
+const serviceInput = document.getElementById("service");
+const messageInput = document.getElementById("message");
+const statusEl = document.getElementById("status");
+
+/* ================= AUTO-SELECT SERVICE ================= */
+const params = new URLSearchParams(window.location.search);
+const serviceFromURL = params.get("service");
+if (serviceFromURL) {
+  serviceInput.value = serviceFromURL;
+}
+
+/* ================= SUBMIT ================= */
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  statusEl.innerText = "Submitting booking...";
+  statusEl.style.color = "#cfd6ff";
+
+  const payload = {
+    name: nameInput.value.trim(),
+    email: emailInput.value.trim(),
+    phone: phoneInput.value.trim(),
+    service: serviceInput.value,
+    message: messageInput.value.trim()
+  };
+
+  try {
+    const res = await fetch(BOOKING_API, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": token
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if (!res.ok) throw new Error("Backend error");
+
+    statusEl.style.color = "#6bff95";
+    statusEl.innerText = "✅ Booking submitted successfully!";
+    form.reset();
+
+  } catch (err) {
+    // 📱 WhatsApp fallback (FREE & SAFE)
+    const text = `New Service Booking 🚀
+Name: ${payload.name}
+Email: ${payload.email}
+Phone: ${payload.phone}
+Service: ${payload.service}
+
+Message:
+${payload.message}`;
+
+    window.open(
+      "https://wa.me/916280158308?text=" + encodeURIComponent(text),
+      "_blank"
+    );
+
+    statusEl.style.color = "#ffd36b";
+    statusEl.innerText = "Redirected to WhatsApp for faster response.";
+  }
+});
+
+/* ================= LOGOUT ================= */
+function logout(){
+  localStorage.removeItem("token");
+  window.location.href = "login.html";
+}
+</script>
+
+</body>
+</html>
